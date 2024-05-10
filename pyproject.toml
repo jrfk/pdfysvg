@@ -26,12 +26,14 @@ classifiers = [
 ]
 dependencies = [
   "click",
+  "svglib",
+  "reportlab",
 ]
 
 [project.urls]
-Documentation = "https://github.com/Junya Fukuda/pdfysvg#readme"
-Issues = "https://github.com/Junya Fukuda/pdfysvg/issues"
-Source = "https://github.com/Junya Fukuda/pdfysvg"
+Documentation = "https://github.com/jrfk/pdfysvg#readme"
+Issues = "https://github.com/jrfk/pdfysvg/issues"
+Source = "https://github.com/jrfk/pdfysvg"
 
 [project.scripts]
 pdfysvg = "pdfysvg.cli:pdfysvg"
@@ -39,12 +41,19 @@ pdfysvg = "pdfysvg.cli:pdfysvg"
 [tool.hatch.version]
 path = "src/pdfysvg/__about__.py"
 
+[[tool.hatch.envs.hatch-test.matrix]]
+python = ["3.8", "3.9", "3.10", "3.11", "3.12"]
+
 [tool.hatch.envs.types]
 extra-dependencies = [
   "mypy>=1.0.0",
 ]
+
 [tool.hatch.envs.types.scripts]
 check = "mypy --install-types --non-interactive {args:src/pdfysvg tests}"
+
+[tool.mypy]
+ignore_missing_imports = true
 
 [tool.coverage.run]
 source_pkgs = ["pdfysvg", "tests"]
@@ -64,3 +73,14 @@ exclude_lines = [
   "if __name__ == .__main__.:",
   "if TYPE_CHECKING:",
 ]
+
+[tool.hatch.envs.docs]
+extra-dependencies = [
+  "sphinx",
+  "sphinx_material",
+]
+[tool.hatch.envs.docs.scripts]
+build = "sphinx-build -M html docs/source docs/build"
+
+[tool.ruff]
+exclude = ["docs"]
