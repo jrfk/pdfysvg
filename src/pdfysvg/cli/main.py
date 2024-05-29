@@ -24,4 +24,4 @@ def pdfy_svg(input_file: str, output_file: str | None = None):
     drawing = svg2rlg(input_file)
     renderPDF.drawToFile(drawing, output_file)
 
-    click.echo(f"Converted {input_file} to {output_file}")
+    click.echo(f"✨ Converted {input_file} to {output_file}")

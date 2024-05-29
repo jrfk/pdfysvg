@@ -1,9 +1,7 @@
 import os
-
 import pytest
 from click.testing import CliRunner
-
-from pdfysvg.cli.main import pdfy_svg
+from pdfysvg.cli import pdfysvg
 
 
 @pytest.fixture
@@ -23,7 +21,7 @@ def temp_svg_file(tmp_path):
 def test_pdfysvg(temp_svg_file, tmp_path):
     runner = CliRunner()
     pdf_file = tmp_path / "test.pdf"
-    result = runner.invoke(pdfy_svg, [str(temp_svg_file), "-o", str(pdf_file)])
+    result = runner.invoke(pdfysvg, [str(temp_svg_file), "-o", str(pdf_file)])
 
     assert result.exit_code == 0, f"CLI exited with an error: {result.output}"
     assert os.path.exists(pdf_file), f"{pdf_file} was not created."
